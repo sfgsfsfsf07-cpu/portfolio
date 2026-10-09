@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Артур — сайты и Telegram-боты</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#070720;--bg2:#17124a;--ink:#f3f1ff;--mute:#a9a4d8;--acc:#b9a8ff;--acc2:#6d4dff;--line:rgba(185,168,255,.28);--glass:rgba(23,18,74,.55);--btn:#f3f1ff;--btn-ink:#10103a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg1:#f4f2ff;--bg2:#e3ddff;--ink:#14143c;--mute:#55557c;--acc:#5b3df0;--acc2:#8d73ff;--line:rgba(20,20,60,.2);--glass:rgba(255,255,255,.6);--btn:#14143c;--btn-ink:#f3f1ff}}
+:root[data-theme="light"]{--bg1:#f4f2ff;--bg2:#e3ddff;--ink:#14143c;--mute:#55557c;--acc:#5b3df0;--acc2:#8d73ff;--line:rgba(20,20,60,.2);--glass:rgba(255,255,255,.6);--btn:#14143c;--btn-ink:#f3f1ff}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:400 17px/1.55 "Exo 2",system-ui,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2) 55%,var(--bg1));overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.up{text-transform:uppercase;letter-spacing:.06em}
+.cham{clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;background:var(--btn);color:var(--btn-ink);padding:17px 30px;font:700 14px "Exo 2",sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s,filter .25s}
+.btn.g{background:rgba(185,168,255,.16);color:var(--ink)}
+.btn:after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg)}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.08)}.btn:hover:after{left:130%;transition:left .6s}.btn:active{transform:scale(.97)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg1) 70%,transparent);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+.logo{font-weight:800;font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.logo sup{font-size:10px;color:var(--acc)}
+nav{display:flex;gap:30px}nav a{color:var(--ink);text-decoration:none;font-weight:500;position:relative}
+nav a:after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--acc);transition:width .3s}nav a:hover:after{width:100%}
+.lang{position:relative}
+.lb{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:9px 16px;font:700 13px "Exo 2",sans-serif;letter-spacing:.08em;cursor:pointer;transition:border-color .2s,background .2s}
+.lb:hover{border-color:var(--acc);background:rgba(185,168,255,.12)}
+.lm{position:absolute;right:0;top:calc(100% + 10px);min-width:190px;list-style:none;margin:0;padding:8px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.35);opacity:0;translate:0 -8px;pointer-events:none;transition:opacity .25s,translate .25s}
+.lang.open .lm{opacity:1;translate:0 0;pointer-events:auto}
+.lm button{width:100%;display:flex;justify-content:space-between;background:none;border:0;color:var(--ink);padding:10px 12px;border-radius:8px;font:500 16px "Exo 2",sans-serif;cursor:pointer;text-align:left}
+.lm button:hover,.lm button[aria-current="true"]{background:rgba(185,168,255,.18)}
+.lm small{color:var(--mute)}
+.hero{position:relative;overflow:hidden;--mx:70%;--my:30%;background:radial-gradient(520px circle at var(--mx) var(--my),rgba(109,77,255,.35),transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;min-height:620px;padding-top:50px;padding-bottom:30px}
+.eb{color:var(--acc);font-size:13px;font-weight:700;margin-bottom:22px}.eb:before{content:"";display:inline-block;width:28px;height:2px;background:var(--acc);vertical-align:middle;margin-right:12px}
+h1{margin:0;font-weight:800;font-size:clamp(46px,9vw,118px);line-height:.98;text-transform:uppercase;letter-spacing:.015em}
+h1 em{display:block;font-style:normal;background:linear-gradient(90deg,var(--acc),#fff,var(--acc2),var(--acc));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:300% 0}}
+.sub{font-size:clamp(20px,2.6vw,30px);font-weight:500;margin:26px 0 12px;max-width:22em}
+.lead{color:var(--mute);max-width:44ch;margin:0 0 32px}
+.row{display:flex;flex-wrap:wrap;gap:14px}
+.hx{position:relative;height:520px;display:grid;place-items:center}
+.hx .r{position:absolute;left:50%;width:0;height:0}
+.hx .r i{position:absolute;width:13px;height:13px;margin:-6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--acc) 45%,var(--acc2));box-shadow:0 0 14px var(--acc2);animation:hxa 4.4s ease-in-out infinite alternate}
+.hx .r i+i{animation-name:hxb}
+@keyframes hxa{from{translate:-64px 0;scale:.55;opacity:.55}to{translate:64px 0;scale:1.25;opacity:1}}
+@keyframes hxb{from{translate:64px 0;scale:1.25;opacity:1}to{translate:-64px 0;scale:.55;opacity:.55}}
+.hx .r b{position:absolute;left:-52px;width:104px;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;padding:10px 0 80px}
+.tile{background:var(--glass);border:1px solid var(--line);padding:26px 24px;backdrop-filter:blur(8px);transition:transform .35s,border-color .35s}
+.tile:hover{transform:translateY(-6px);border-color:var(--acc)}
+.tile .n{color:var(--acc);font-weight:700;font-size:13px;letter-spacing:.1em}
+.tile h3{margin:36px 0 6px;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.tile p{margin:0;color:var(--mute);font-size:15px}
+section{padding:80px 0}
+h2{font-weight:800;font-size:clamp(32px,5.5vw,66px);line-height:1;text-transform:uppercase;letter-spacing:.02em;margin:0 0 44px}
+.works{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:30px}
+.work{display:block;color:inherit;text-decoration:none;background:var(--glass);border:1px solid var(--line);padding:22px 22px 26px;transition:transform .4s,border-color .4s;overflow:hidden}
+.work:hover{transform:translateY(-8px);border-color:var(--acc)}
+.dev{position:relative;container-type:inline-size;margin-bottom:34px}
+.desk{border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:#000;display:flex;flex-direction:column}
+.dots{display:flex;gap:5px;padding:7px 10px;background:rgba(0,0,0,.4)}.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}
+.ph{position:absolute;right:4%;bottom:-9%;width:27%;aspect-ratio:9/17;border-radius:16px;border:3px solid #0b0b25;overflow:hidden;box-shadow:0 22px 40px rgba(0,0,0,.55);transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.work:hover .ph{transform:translateY(-16px) rotate(-3deg)}
+.m{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:1.2em;padding:1.7em;background:var(--mbg);font-size:1.9cqw;align-content:start}
+.ph .m{grid-template-columns:1fr;font-size:1.05cqw;height:100%;padding:2em 1.6em}
+.m .h{display:grid;gap:.6em}.m .h i{display:block;height:1.7em;border-radius:.3em;background:var(--mink)}
+.m .h i:nth-child(1){width:92%}.m .h i:nth-child(2){width:68%}.m .h i:nth-child(3){width:80%;background:var(--macc)}
+.m .t i{display:block;height:.6em;margin-top:.6em;border-radius:.3em;background:var(--mink);opacity:.4}.m .t i:nth-child(2){width:70%}
+.m .bt{width:8em;height:2.2em;border-radius:1.2em;background:var(--macc);margin-top:1.2em}
+.m .cd{background:var(--mcard);border-radius:1.2em;padding:1.1em;display:flex;flex-wrap:wrap;gap:.6em;align-content:flex-start}
+.m .cd i{height:1.7em;width:30%;border-radius:1em;background:var(--mcink);opacity:.18}.m .cd i:nth-child(2n){background:var(--macc);opacity:1}
+.m .cd i.w{width:100%;height:2.4em;border-radius:1.2em;background:var(--mcink);opacity:1}
+.pole{width:2em;height:7em;border-radius:1em;border:.2em solid var(--mink);background:repeating-linear-gradient(-45deg,var(--mink) 0 .8em,transparent .8em 1.6em);margin-top:1.4em}
+.sw{display:flex;margin-top:1.4em}.sw i{width:2.6em;height:2.6em;border-radius:50%;margin-right:-.7em;box-shadow:inset -.4em -.5em .8em rgba(0,0,0,.2)}
+.wt{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.wt h3{margin:0;font-size:26px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.wd{color:var(--mute);margin:6px 0 14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.go{font-weight:700;color:var(--acc);letter-spacing:.06em;text-transform:uppercase;font-size:13px;transition:translate .3s}.work:hover .go{translate:6px 0}
+.cta{text-align:center;padding:100px 0;position:relative;overflow:hidden;background:radial-gradient(600px circle at 50% 110%,rgba(109,77,255,.45),transparent 70%)}
+.cta h2{margin-bottom:16px}.cta p{color:var(--mute);max-width:40ch;margin:0 auto 32px}
+.ct{margin-top:24px;color:var(--mute);display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap}.ct a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid var(--acc)}
+.dc{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.dc i{position:absolute;border-radius:50%;filter:blur(60px);background:var(--acc2);opacity:.28;animation:fl 12s ease-in-out infinite alternate}
+@keyframes fl{to{translate:40px -30px}}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mute);font-size:14px;text-align:center}
+.rv{opacity:0;translate:0 38px;transition:opacity .8s var(--d,0s) ease,translate .8s var(--d,0s) cubic-bezier(.2,.7,.2,1),transform .4s,border-color .4s}
+.rv.in{opacity:1;translate:0 0}
+.pg{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc2),var(--acc));z-index:40}
+@media (max-width:860px){nav{display:none}.hero .wrap{grid-template-columns:1fr;min-height:0}.hx{height:340px;order:-1}.hx .r{scale:.7}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none;transition:none}h1 em,.hx .r i,.dc i{animation:none}.btn,.tile,.work,.ph{transition:none}}
+</style>
+</head>
+<body>
+<div class="pg" id="pg"></div>
+<header><div class="wrap bar">
+ <a class="logo" href="#top">Artur<sup>/dev</sup></a>
+ <nav><a href="#works" data-i="n1"></a><a href="#services" data-i="n2"></a><a href="#contact" data-i="n3"></a></nav>
+ <div class="lang" id="lang"><button class="lb" id="lb" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"><span id="lc">RU</span> ▾</button><ul class="lm" id="lm"></ul></div>
+</div></header>
+
+<div class="hero" id="top"><div class="wrap">
+ <div>
+  <div class="eb up" data-i="eb"></div>
+  <h1><span data-i="hi"></span><em data-i="name"></em></h1>
+  <p class="sub" data-i="sub"></p>
+  <p class="lead" data-i="lead"></p>
+  <div class="row"><a class="btn cham" href="#works" data-i="b1"></a><a class="btn g cham" id="tg1" target="_blank" rel="noopener" data-i="b2"></a></div>
+ </div>
+ <div class="hx" id="hx" aria-hidden="true"></div>
+</div></div>
+
+<div class="wrap" id="services"><div class="tiles">
+ <div class="tile cham"><span class="n">01</span><h3 data-i="s1t"></h3><p data-i="s1d"></p></div>
+ <div class="tile cham"><span class="n">02</span><h3 data-i="s2t"></h3><p data-i="s2d"></p></div>
+ <div class="tile cham"><span class="n">03</span><h3 data-i="s3t"></h3><p data-i="s3d"></p></div>
+</div></div>
+
+<section id="works"><div class="wrap"><h2 data-i="wh"></h2><div class="works" id="wl"></div></div></section>
+
+<div class="cta" id="contact"><div class="dc" aria-hidden="true"><i style="width:300px;height:300px;left:-80px;top:20px"></i><i style="width:260px;height:260px;right:-60px;bottom:-40px;animation-delay:-5s"></i></div>
+ <div class="wrap"><h2 data-i="ch"></h2><p data-i="cd"></p>
+ <a class="btn cham" id="tg2" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/></svg><span data-i="b2"></span></a>
+ <div class="ct"><span id="ctg"></span><span><span data-i="ph"></span>: <a id="cph"></a></span></div></div>
+</div>
+<footer><div class="wrap"><span data-i="name"></span> · <span data-i="foot"></span></div></footer>
+
+<script>
+var CFG={tg:"nofl1x",phone:"+7 982 527-66-30",
+ works:[{k:"p1",url:"https://claude.ai/artifact/JWoV3yU5cW9FvVVVsuJEvY",title:"KRAFT",dec:"pole",c:{bg:"#33150f",ink:"#e8e3d1",acc:"#ee7a62",card:"#e8e3d1",cink:"#33150f"}},
+        {k:"p2",url:"https://claude.ai/artifact/Ya1Mp8jp7ZPHHBebHUqSYS",title:"pion",dec:"sw",c:{bg:"#f7d4f2",ink:"#6b1426",acc:"#ff2d4a",card:"#fbfaf5",cink:"#6b1426"}}]};
+var L=[["ru","RU","Русский"],["en","EN","English"],["es","ES","Español"],["de","DE","Deutsch"],["uk","UK","Українська"]];
+var T={
+ru:{n1:"Работы",n2:"Услуги",n3:"Контакты",eb:"Портфолио · 2026",hi:"Привет, я",name:"Артур",sub:"Создаю сайты и Telegram-ботов для бизнеса",lead:"Онлайн-запись, аккуратный дизайн и анимации: клиенты записываются сами, без звонков.",b1:"Смотреть работы",b2:"Написать в Telegram",s1t:"Сайты",s1d:"Лендинги и сайты услуг под ключ",s2t:"Telegram-боты",s2d:"Запись, заявки и уведомления",s3t:"Онлайн-запись",s3d:"Мастер, дата и время за минуту",wh:"Мои работы",p1:"Сайт барбершопа с онлайн-записью к мастеру",p2:"Сайт студии маникюра с записью в три шага",t1:"Сайт",t3:"Анимации",open:"Открыть сайт",ch:"Хотите такой же сайт?",cd:"Напишите мне: обсудим задачу, сроки и стоимость.",ph:"Телефон",foot:"демо-работы созданы для портфолио"},
+en:{n1:"Work",n2:"Services",n3:"Contact",eb:"Portfolio · 2026",hi:"Hi, I'm",name:"Artur",sub:"I build websites and Telegram bots for business",lead:"Online booking, clean design and smooth animations: clients book on their own, no phone calls.",b1:"View work",b2:"Message on Telegram",s1t:"Websites",s1d:"Landing pages and service sites, turnkey",s2t:"Telegram bots",s2d:"Booking, leads and notifications",s3t:"Online booking",s3d:"Specialist, date and time in a minute",wh:"My work",p1:"Barbershop website with online booking per barber",p2:"Nail studio website with three-step booking",t1:"Website",t3:"Animations",open:"Open site",ch:"Want a site like this?",cd:"Message me and we'll discuss the task, timing and price.",ph:"Phone",foot:"demo projects made for the portfolio"},
+es:{n1:"Trabajos",n2:"Servicios",n3:"Contacto",eb:"Portafolio · 2026",hi:"Hola, soy",name:"Artur",sub:"Creo sitios web y bots de Telegram para negocios",lead:"Reserva en línea, diseño limpio y animaciones: los clientes reservan solos, sin llamadas.",b1:"Ver trabajos",b2:"Escribir por Telegram",s1t:"Sitios web",s1d:"Landings y sitios de servicios llave en mano",s2t:"Bots de Telegram",s2d:"Reservas, solicitudes y avisos",s3t:"Reserva en línea",s3d:"Especialista, fecha y hora en un minuto",wh:"Mis trabajos",p1:"Sitio de barbería con reserva en línea por barbero",p2:"Sitio de estudio de uñas con reserva en tres pasos",t1:"Sitio web",t3:"Animaciones",open:"Abrir sitio",ch:"¿Quieres un sitio así?",cd:"Escríbeme y hablamos de la tarea, los plazos y el precio.",ph:"Teléfono",foot:"proyectos demo creados para el portafolio"},
+de:{n1:"Projekte",n2:"Leistungen",n3:"Kontakt",eb:"Portfolio · 2026",hi:"Hallo, ich bin",name:"Artur",sub:"Ich erstelle Websites und Telegram-Bots für Unternehmen",lead:"Online-Buchung, sauberes Design und Animationen: Kunden buchen selbst, ganz ohne Anrufe.",b1:"Projekte ansehen",b2:"Auf Telegram schreiben",s1t:"Websites",s1d:"Landingpages und Service-Seiten, schlüsselfertig",s2t:"Telegram-Bots",s2d:"Buchungen, Anfragen und Benachrichtigungen",s3t:"Online-Buchung",s3d:"Fachkraft, Datum und Uhrzeit in einer Minute",wh:"Meine Projekte",p1:"Barbershop-Website mit Online-Buchung pro Barber",p2:"Nagelstudio-Website mit Buchung in drei Schritten",t1:"Website",t3:"Animationen",open:"Seite öffnen",ch:"Möchten Sie so eine Website?",cd:"Schreiben Sie mir: wir besprechen Aufgabe, Zeitplan und Preis.",ph:"Telefon",foot:"Demo-Projekte für das Portfolio"},
+uk:{n1:"Роботи",n2:"Послуги",n3:"Контакти",eb:"Портфоліо · 2026",hi:"Привіт, я",name:"Артур",sub:"Створюю сайти та Telegram-ботів для бізнесу",lead:"Онлайн-запис, акуратний дизайн і анімації: клієнти записуються самі, без дзвінків.",b1:"Дивитися роботи",b2:"Написати в Telegram",s1t:"Сайти",s1d:"Лендінги та сайти послуг під ключ",s2t:"Telegram-боти",s2d:"Запис, заявки та сповіщення",s3t:"Онлайн-запис",s3d:"Майстер, дата й час за хвилину",wh:"Мої роботи",p1:"Сайт барбершопу з онлайн-записом до майстра",p2:"Сайт студії манікюру із записом у три кроки",t1:"Сайт",t3:"Анімації",open:"Відкрити сайт",ch:"Хочете такий самий сайт?",cd:"Напишіть мені: обговоримо задачу, терміни та вартість.",ph:"Телефон",foot:"демо-роботи створені для портфоліо"}};
+function $(i){return document.getElementById(i)}
+var cur="ru";
+try{var s=localStorage.getItem("lang");if(s&&T[s])cur=s}catch(e){}
+function mini(w){var c=w.c,d=w.dec=="pole"?"<div class='pole'></div>":"<div class='sw'><i style='background:#f7d4f2'></i><i style='background:#ff2d4a'></i><i style='background:#e8b4a0'></i></div>";
+ return "<div class='m' style='--mbg:"+c.bg+";--mink:"+c.ink+";--macc:"+c.acc+";--mcard:"+c.card+";--mcink:"+c.cink+"'><div><div class='h'><i></i><i></i><i></i></div><div class='t'><i></i><i></i></div><div class='bt'></div>"+d+"</div><div class='cd'><i class='w'></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>"}
+$("wl").innerHTML=CFG.works.map(function(w){return "<a class='work cham' href='"+w.url+"' target='_blank' rel='noopener'><div class='dev'><div class='desk'><div class='dots'><i></i><i></i><i></i></div>"+mini(w)+"</div><div class='ph'>"+mini(w)+"</div></div><div class='wt'><h3>"+w.title+"</h3><span class='go'>"+"<span data-i='open'></span> →</span></div><p class='wd' data-i='"+w.k+"'></p><div class='tags'><span data-i='t1'></span><span data-i='s3t'></span><span data-i='t3'></span></div></a>"}).join("");
+$("lm").innerHTML=L.map(function(l){return "<li><button type='button' data-l='"+l[0]+"'><span>"+l[2]+"</span><small>"+l[1]+"</small></button></li>"}).join("");
+function setLang(l){cur=l;var t=T[l];document.documentElement.lang=l;
+ document.querySelectorAll("[data-i]").forEach(function(e){if(t[e.dataset.i]!=null)e.textContent=t[e.dataset.i]});
+ $("lc").textContent=L.filter(function(x){return x[0]==l})[0][1];
+ document.querySelectorAll("#lm button").forEach(function(b){b.setAttribute("aria-current",b.dataset.l==l)});
+ document.title=t.name+" — "+t.sub;
+ try{localStorage.setItem("lang",l)}catch(e){}}
+var url="https://t.me/"+CFG.tg;["tg1","tg2"].forEach(function(i){$(i).href=url});
+$("ctg").innerHTML="Telegram: <a href='"+url+"' target='_blank' rel='noopener'>@"+CFG.tg+"</a>";
+$("cph").textContent=CFG.phone;$("cph").href="tel:"+CFG.phone.replace(/[^\d+]/g,"");
+setLang(cur);
+$("lb").onclick=function(e){e.stopPropagation();var o=$("lang").classList.toggle("open");$("lb").setAttribute("aria-expanded",o)};
+$("lm").onclick=function(e){var b=e.target.closest("button");if(b){setLang(b.dataset.l);$("lang").classList.remove("open");$("lb").setAttribute("aria-expanded","false")}};
+document.addEventListener("click",function(){$("lang").classList.remove("open")});
+document.addEventListener("keydown",function(e){if(e.key=="Escape")$("lang").classList.remove("open")});
+var hx=$("hx"),hh="";for(var i=0;i<22;i++){hh+="<div class='r' style='top:"+(i*22+20)+"px'><b></b><i style='animation-delay:"+(-i*.2)+"s'></i><i style='animation-delay:"+(-i*.2)+"s'></i></div>"}hx.innerHTML=hh;
+var rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+var els=[].slice.call(document.querySelectorAll(".eb,h1,.sub,.lead,.hero .row,.tile,h2,.work,.cta p,.cta .btn,.ct"));
+if(!rm&&"IntersectionObserver" in window){
+ var io=new IntersectionObserver(function(es){es.forEach(function(x){x.target.classList.toggle("in",x.isIntersecting)})},{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+ els.forEach(function(e){e.classList.add("rv");var p=e.parentNode;if(p.classList.contains("tiles")||p.classList.contains("works"))e.style.setProperty("--d",([].indexOf.call(p.children,e))*.1+"s");io.observe(e)})}
+var hero=document.querySelector(".hero");
+if(!rm)hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();hero.style.setProperty("--mx",(e.clientX-r.left)+"px");hero.style.setProperty("--my",(e.clientY-r.top)+"px")});
+var tk=false;function upd(){tk=false;var m=document.documentElement.scrollHeight-innerHeight;$("pg").style.width=(m>0?scrollY/m*100:0)+"%";if(!rm)hx.style.transform="translateY("+(scrollY*.12)+"px)"}
+addEventListener("scroll",function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});upd();
+</script>
+</body>
+</html>
