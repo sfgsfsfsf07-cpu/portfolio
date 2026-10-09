@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pion — студия маникюра</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbfaf5;--ink:#2a0d14;--pink:#f7d4f2;--burg:#6b1426;--head:#6b1426;--coral:#ff2d4a;--mute:#7a5a62;--line:#d9ccd0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1c0b10;--ink:#f6efe9;--pink:#3a1624;--head:#f7d4f2;--mute:#b89aa3;--line:#4a2a35}}
+:root[data-theme="dark"]{--paper:#1c0b10;--ink:#f6efe9;--pink:#3a1624;--head:#f7d4f2;--mute:#b89aa3;--line:#4a2a35}
+html{scroll-padding-top:90px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.5 "Inter Tight",system-ui,sans-serif;overflow-x:hidden}
+.mono{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.nav{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));z-index:10;margin:12px auto 0;width:min(900px,calc(100% - 24px));background:var(--burg);color:#fbfaf5;border-radius:999px;padding:9px 10px 9px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:900;font-size:24px;letter-spacing:-.5px;color:#fbfaf5;text-decoration:none}
+.nav nav{display:flex;gap:24px}.nav nav a{color:#fbfaf5;text-decoration:none;font-weight:500}
+.pill{display:inline-block;border:0;border-radius:999px;background:var(--coral);color:#fff;padding:12px 24px;font:800 15px "Inter Tight",sans-serif;text-decoration:none;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.wrap{position:relative;z-index:1}
+.hero,section{position:relative}section{overflow:hidden}
+.dc{position:absolute;inset:0;pointer-events:none;z-index:0}
+.dc svg{position:absolute;width:var(--w,100px);height:auto;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;rotate:var(--r,0deg);color:var(--head);opacity:.2;animation:fl 8s ease-in-out infinite}
+section .dc svg{color:var(--ink);opacity:.12}
+.book .dc svg{color:#fbfaf5;opacity:.18}
+@keyframes fl{50%{translate:0 -14px}}
+.pill{position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
+.pill:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 0 rgba(0,0,0,.2)}
+.pill:active{transform:scale(.97);box-shadow:none}
+.pill:after{content:"";position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg)}
+.pill:hover:after{left:130%;transition:left .6s}
+.chip{transition:transform .2s,background .2s,color .2s,border-color .2s,box-shadow .2s}
+.chip:not(:disabled):hover{transform:translateY(-3px);box-shadow:0 7px 0 #2a0d14}
+.chip:not(:disabled):active{transform:translateY(3px);box-shadow:0 1px 0 #2a0d14}
+.sw{transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.sw:hover{transform:translateY(-10px) rotate(-8deg) scale(1.08);z-index:2;position:relative}
+.card{transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:8px 8px 0 var(--coral)}
+.shade{transition:transform .35s cubic-bezier(.3,1.5,.5,1),border-radius .35s}
+.shade:hover{transform:scale(1.06) rotate(2deg);border-radius:48px 24px 48px 24px}
+.shade span{display:inline-block;transition:transform .3s}.shade:hover span{transform:translateY(-4px)}
+.nav nav a{position:relative}.nav nav a:after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:var(--coral);transition:width .3s}.nav nav a:hover:after{width:100%}
+.rv{opacity:0;translate:0 38px;transition:opacity .8s var(--d,0s) ease,translate .8s var(--d,0s) cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;translate:0 0}
+.card.rv{transition:opacity .8s var(--d,0s) ease,translate .8s var(--d,0s) cubic-bezier(.2,.7,.2,1),transform .3s,box-shadow .3s}
+.shade.rv{transition:opacity .8s var(--d,0s) ease,translate .8s var(--d,0s) cubic-bezier(.2,.7,.2,1),transform .35s cubic-bezier(.3,1.5,.5,1),border-radius .35s}
+.pg{position:fixed;top:0;left:0;height:3px;width:0;background:var(--coral);z-index:20}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none;transition:none}.dc svg{animation:none}.pill,.chip,.sw,.card,.shade,.shade span,.pill:after{transition:none}.pill:hover,.sw:hover,.card:hover,.shade:hover{transform:none}}
+.hero{background:var(--pink);margin-top:-62px;padding:130px 0 70px;overflow:hidden}
+.hero h1{font-weight:900;font-size:clamp(52px,12vw,160px);line-height:.92;letter-spacing:-.03em;margin:18px 0 28px;color:var(--head)}
+.hero h1 em{font-style:normal;color:var(--coral)}
+.hero p{max-width:46ch;font-size:19px;margin:0 0 28px}
+.sws{display:flex;margin-top:46px}
+.sw{width:76px;height:76px;border-radius:50%;border:3px solid var(--pink);margin-right:-18px;box-shadow:inset -8px -10px 16px rgba(0,0,0,.22),0 6px 12px rgba(0,0,0,.15);cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{outline:3px solid var(--coral);outline-offset:2px}
+.mq{background:var(--coral);color:#fff;overflow:hidden;white-space:nowrap}
+.mq div{display:inline-block;padding:14px 0;font-weight:900;font-size:22px;letter-spacing:0;animation:mq 24s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.mq div{animation:none}}
+section{padding:80px 0}
+h2{font-weight:900;font-size:clamp(34px,6vw,76px);line-height:1;letter-spacing:-.025em;margin:12px 0 38px;color:var(--head)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{border:2px solid var(--ink);border-radius:26px;padding:24px;display:flex;flex-direction:column;gap:6px;min-height:260px}
+.card b{font-weight:800;font-size:24px;line-height:1.1}.card small{color:var(--mute)}
+.card .pr{font-weight:900;font-size:54px;letter-spacing:-1px;margin-top:auto;line-height:1}
+.card .pill{margin-top:12px;align-self:flex-start;background:var(--ink);color:var(--paper)}
+.shades{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.shade{aspect-ratio:1;border-radius:24px;padding:14px;display:flex;align-items:flex-end;cursor:pointer;border:0;color:#2a0d14;text-align:left}
+.shade span{background:rgba(251,250,245,.85);border-radius:999px;padding:4px 10px}
+.book{background:var(--burg);color:#fbfaf5}
+.book h2{color:#fbfaf5}
+.grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:start}
+.prog{display:flex;gap:8px;margin:0 0 20px}.prog i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}.prog i.on{background:var(--coral)}
+.sum{border-top:1px solid rgba(255,255,255,.3);margin-top:18px}
+.sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.sum span{opacity:.7}.sum b{text-align:right}
+.box{background:#fbfaf5;color:#2a0d14;border-radius:28px;padding:28px}
+.box h3{margin:0 0 6px;font-weight:900;font-size:38px;letter-spacing:-.4px}
+.l{display:block;font:500 13px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a5a62;margin:26px 0 12px}
+.row{display:flex;flex-wrap:wrap;gap:14px 10px}
+.chip{background:#fff;color:#2a0d14;border:2px solid #2a0d14;border-radius:999px;padding:13px 22px;font:800 17px "Inter Tight",sans-serif;cursor:pointer;box-shadow:0 4px 0 #2a0d14}
+.chip[aria-pressed="true"]{background:var(--coral);color:#fff;border-color:#2a0d14}
+.chip:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed;box-shadow:none;border-color:#cdbcc1;transform:none}
+.chip small{opacity:.6;margin-left:4px}
+.box .sw{width:46px;height:46px;margin:0;border-width:2px;border-color:#fbfaf5;box-shadow:inset -4px -5px 8px rgba(0,0,0,.22),0 0 0 2px #2a0d14}
+.box input{width:100%;background:transparent;border:0;border-bottom:2px solid #2a0d14;padding:10px 0;font:500 17px "Inter Tight",sans-serif;color:#2a0d14;margin-bottom:14px}
+.nav2{display:flex;gap:10px;margin-top:30px}.nav2 .pill{padding:18px 30px;font-size:19px}.nav2 .pill{flex:1;text-align:center}.nav2 .back{background:transparent;color:#2a0d14;border:2px solid #2a0d14;flex:0 0 auto}
+.msg{color:#a12a22;font-weight:500;min-height:1.4em;margin-top:10px}
+footer{padding:30px 0 44px;color:var(--mute);font-size:14px}
+@media (max-width:860px){.nav nav{display:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs>
+<symbol id='bt' viewBox='0 0 60 120'><rect x='8' y='50' width='44' height='64' rx='12'/><rect x='20' y='32' width='20' height='18' rx='3'/><rect x='24' y='4' width='12' height='28' rx='4'/><path d='M16 74h28M16 86h18'/></symbol>
+<symbol id='fl' viewBox='0 0 140 40'><rect x='4' y='8' width='132' height='24' rx='12'/><path d='M40 8v24M56 8v24M72 8v24M88 8v24M104 8v24'/></symbol>
+<symbol id='br' viewBox='0 0 140 30'><path d='M4 12L88 8V22L4 18Z'/><path d='M88 8Q122 6 136 15Q122 24 88 22'/></symbol>
+<symbol id='nl' viewBox='0 0 50 70'><path d='M10 66V30Q10 4 25 4Q40 4 40 30V66Z'/><path d='M18 20v22'/></symbol>
+<symbol id='dr' viewBox='0 0 40 56'><path d='M20 4Q36 26 36 36A16 16 0 0 1 4 36Q4 26 20 4Z'/></symbol>
+<symbol id='sp' viewBox='0 0 40 40'><path d='M20 2Q22 18 38 20Q22 22 20 38Q18 22 2 20Q18 18 20 2Z'/></symbol>
+</defs></svg>
+<div class="nav"><a class="logo" href="#">pion</a><nav><a href="#services">Услуги</a><a href="#shades">Оттенки</a><a href="#book">Запись</a></nav><a class="pill" href="#book">Записаться</a></div>
+
+<div class="hero"><div class="dc" aria-hidden="true">
+<svg viewBox='0 0 60 120' style='top:110px;right:7%;--w:120px;--r:14deg'><use href='#bt'/></svg>
+<svg viewBox='0 0 140 40' style='top:330px;right:20%;--w:250px;--r:-30deg;animation-delay:-2s'><use href='#fl'/></svg>
+<svg viewBox='0 0 140 30' style='bottom:60px;right:5%;--w:230px;--r:-10deg;animation-delay:-4s'><use href='#br'/></svg>
+<svg viewBox='0 0 40 40' style='top:150px;left:52%;--w:46px'><use href='#sp'/></svg>
+<svg viewBox='0 0 40 40' style='bottom:150px;left:60%;--w:34px;animation-delay:-3s'><use href='#sp'/></svg>
+<svg viewBox='0 0 40 56' style='top:70px;right:30%;--w:40px;--r:10deg'><use href='#dr'/></svg>
+</div><div class="wrap">
+ <span class="mono">Студия маникюра · 2026</span>
+ <h1>Ногти, <em>которыми</em> гордишься.</h1>
+ <p>Аккуратный маникюр, стойкое покрытие и дизайн под вашу руку. Выберите оттенок, мастера и время за минуту.</p>
+ <a class="pill" href="#book">Записаться →</a>
+ <div class="sws" id="heroSw" aria-label="Оттенки лака"></div>
+</div></div>
+
+<div class="mq" aria-hidden="true"><div id="mq"></div></div>
+
+<section id="services"><div class="dc" aria-hidden="true">
+<svg viewBox='0 0 50 70' style='top:40px;right:4%;--w:80px;--r:18deg'><use href='#nl'/></svg>
+<svg viewBox='0 0 60 120' style='bottom:30px;right:14%;--w:80px;--r:-14deg;animation-delay:-3s'><use href='#bt'/></svg>
+<svg viewBox='0 0 40 40' style='top:90px;right:22%;--w:40px'><use href='#sp'/></svg>
+<svg viewBox='0 0 40 56' style='bottom:80px;left:3%;--w:44px'><use href='#dr'/></svg>
+</div><div class="wrap">
+ <span class="mono">Услуги</span><h2>Что делаем</h2><div class="cards" id="cards"></div>
+</div></section>
+
+<section id="shades" style="padding-top:0"><div class="dc" aria-hidden="true">
+<svg viewBox='0 0 140 30' style='top:20px;right:5%;--w:210px;--r:8deg'><use href='#br'/></svg>
+<svg viewBox='0 0 40 40' style='top:60px;left:46%;--w:36px;animation-delay:-2s'><use href='#sp'/></svg>
+<svg viewBox='0 0 50 70' style='bottom:20px;right:10%;--w:60px;--r:-20deg'><use href='#nl'/></svg>
+</div><div class="wrap">
+ <span class="mono">Палитра</span><h2>Выберите оттенок</h2><div class="shades" id="shadeGrid"></div>
+</div></section>
+
+<section class="book" id="book"><div class="dc" aria-hidden="true">
+<svg viewBox='0 0 60 120' style='bottom:40px;left:2%;--w:110px;--r:-16deg'><use href='#bt'/></svg>
+<svg viewBox='0 0 140 40' style='top:30px;right:34%;--w:240px;--r:12deg;animation-delay:-3s'><use href='#fl'/></svg>
+<svg viewBox='0 0 40 56' style='top:200px;left:8%;--w:44px'><use href='#dr'/></svg>
+<svg viewBox='0 0 40 40' style='bottom:90px;left:40%;--w:40px;animation-delay:-2s'><use href='#sp'/></svg>
+</div><div class="wrap grid">
+ <div><span class="mono">Онлайн-запись</span><h2>Три шага до красивых ногтей</h2><div class="sum" id="sum"></div></div>
+ <div class="box"><div class="prog" id="prog"></div><div id="wiz"></div></div>
+</div></section>
+
+<div class="wrap"><footer>pion · ул. Примерная, 8 · ежедневно 10:00–21:00 · Демо-сайт для портфолио, записи не отправляются</footer></div>
+
+<script>
+var S=[["Классический маникюр",1500,"Обработка и уход · 1 ч"],["Маникюр + гель-лак",2200,"Покрытие в 2 слоя · 2 ч"],["Наращивание",3500,"Форма и длина на выбор · 3 ч"],["Педикюр",2500,"Аппаратный, с покрытием · 2 ч"]];
+var M=["Алина","Дарья","Мария","Ева"],SH=[["Нюд","#e8b4a0"],["Френч","#f6ebdc"],["Вишня","#9b1535"],["Хром","#b8bccb"],["Молочный","#f4e9e1"],["Пион","#e96aa8"]];
+var sel={s:1,c:0,m:-1,d:0,t:null},step=1,done=null,KEY="pion-bookings",WD=["вс","пн","вт","ср","чт","пт","сб"];
+function $(i){return document.getElementById(i)}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+var store=load();
+function dt(i){var d=new Date();d.setDate(d.getDate()+i);return d}
+function key(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function fake(k,m,t){var s=k+m+t,n=0;for(var i=0;i<s.length;i++)n=(n*31+s.charCodeAt(i))%97;return n%4==0}
+function taken(mi,t){var k=key(dt(sel.d));return fake(k,M[mi],t)||store.some(function(x){return x.k==k&&x.m==mi&&x.t==t})}
+function free(t){if(sel.m>=0)return !taken(sel.m,t);for(var i=0;i<M.length;i++)if(!taken(i,t))return true;return false}
+function past(t){return !sel.d&&+t.split(":")[0]<=new Date().getHours()}
+function bg(c){return "linear-gradient(150deg,"+c+","+c+" 55%,rgba(0,0,0,.28))"}
+function ch(k,v,on,txt,dis){return "<button type='button' class='chip' data-k='"+k+"' data-v='"+v+"' aria-pressed='"+on+"'"+(dis?" disabled":"")+">"+txt+"</button>"}
+function dlabel(i){var x=dt(i);return x.getDate()+" "+(i==0?"сегодня":i==1?"завтра":WD[x.getDay()])}
+function R(){
+ $("prog").innerHTML=[1,2,3].map(function(n){return "<i class='"+(n<=step&&!done?"on":done?"on":"")+"'></i>"}).join("");
+ var w=$("wiz"),h="";
+ if(done){h="<h3>Вы записаны!</h3><p id='dn' style='margin:8px 0 0'></p><div class='nav2'><button class='pill' data-go='new' type='button'>Новая запись</button></div>";w.innerHTML=h;$("dn").textContent=done;sumR();return}
+ if(step==1){
+  h="<h3>Услуга и оттенок</h3><span class='l'>Услуга</span><div class='row'>"+S.map(function(s,i){return ch("s",i,sel.s==i,s[0]+"<small>"+s[1]+" ₽</small>")}).join("")+"</div><span class='l'>Оттенок</span><div class='row'>"+SH.map(function(c,i){return "<button type='button' class='sw' data-k='c' data-v='"+i+"' aria-label='"+c[0]+"' aria-pressed='"+(sel.c==i)+"' style='background:"+bg(c[1])+"'></button>"}).join("")+"</div><div class='nav2'><button class='pill' data-go='next' type='button'>Дальше</button></div>";
+ }else if(step==2){
+  h="<h3>Мастер и время</h3><span class='l'>Мастер</span><div class='row'>"+ch("m",-1,sel.m<0,"Любой")+M.map(function(x,i){return ch("m",i,sel.m==i,x)}).join("")+"</div><span class='l'>День</span><div class='row'>"+[0,1,2,3,4,5,6].map(function(i){return ch("d",i,sel.d==i,dlabel(i))}).join("")+"</div><span class='l'>Время</span><div class='row'>";
+  for(var k=10;k<=20;k++){var t=k+":00";h+=ch("t",t,sel.t==t,t,!free(t)||past(t))}
+  h+="</div><div class='msg' id='msg' role='status'></div><div class='nav2'><button class='pill back' data-go='back' type='button'>Назад</button><button class='pill' data-go='next' type='button'>Дальше</button></div>";
+ }else{
+  h="<h3>Ваши контакты</h3><span class='l'>Имя</span><input id='nm' autocomplete='name' aria-label='Имя'><span class='l'>Телефон</span><input id='ph' type='tel' autocomplete='tel' aria-label='Телефон'><div class='msg' id='msg' role='status'></div><div class='nav2'><button class='pill back' data-go='back' type='button'>Назад</button><button class='pill' data-go='ok' type='button'>Подтвердить</button></div>";
+ }
+ w.innerHTML=h;sumR();
+}
+function sumR(){
+ var m=sel.m<0?"Любой":M[sel.m],rows=[["Услуга",S[sel.s][0]],["Оттенок",SH[sel.c][0]],["Мастер",m],["Когда",sel.t?dlabel(sel.d)+", "+sel.t:"—"],["Итого",S[sel.s][1]+" ₽"]];
+ $("sum").innerHTML=rows.map(function(r){return "<div><span>"+r[0]+"</span><b>"+r[1]+"</b></div>"}).join("");
+}
+function err(t){var m=$("msg");if(m)m.textContent=t}
+$("wiz").addEventListener("click",function(e){
+ var b=e.target.closest("button");if(!b)return;
+ if(b.dataset.k){var k=b.dataset.k;sel[k]=k=="t"?b.dataset.v:+b.dataset.v;if(k=="m"||k=="d")sel.t=null;R();return}
+ var g=b.dataset.go;
+ if(g=="back"){step--;R()}
+ else if(g=="next"){if(step==2&&!sel.t)return err("Выберите время.");step++;R()}
+ else if(g=="new"){done=null;step=1;sel.t=null;R()}
+ else if(g=="ok"){
+  var n=$("nm").value.trim(),p=$("ph").value.trim();
+  if(n.length<2)return err("Введите имя.");
+  if(p.replace(/\D/g,"").length<7)return err("Введите телефон (минимум 7 цифр).");
+  var mi=sel.m;if(mi<0){for(var i=0;i<M.length;i++)if(!taken(i,sel.t)){mi=i;break}}
+  var d=dt(sel.d);store.push({k:key(d),m:mi,t:sel.t});save(store);
+  done=n+", ждём вас "+d.getDate()+"."+("0"+(d.getMonth()+1)).slice(-2)+" в "+sel.t+": "+S[sel.s][0]+", оттенок «"+SH[sel.c][0]+"», мастер "+M[mi]+".";sel.m=mi;R();
+ }
+});
+function pick(s,c){if(s!=null)sel.s=s;if(c!=null)sel.c=c;step=1;done=null;R();$("book").scrollIntoView({behavior:"smooth"})}
+$("cards").innerHTML=S.map(function(s,i){return "<div class='card'><b>"+s[0]+"</b><small>"+s[2]+"</small><div class='pr'>"+s[1]+" ₽</div><button class='pill' type='button' data-i='"+i+"'>Выбрать</button></div>"}).join("");
+$("cards").onclick=function(e){var b=e.target.closest("button");if(b)pick(+b.dataset.i,null)};
+$("shadeGrid").innerHTML=SH.map(function(c,i){return "<button type='button' class='shade' data-i='"+i+"' style='background:"+bg(c[1])+"'><span class='mono'>"+c[0]+"</span></button>"}).join("");
+$("shadeGrid").onclick=function(e){var b=e.target.closest("button");if(b)pick(null,+b.dataset.i)};
+$("heroSw").innerHTML=SH.map(function(c,i){return "<button type='button' class='sw' data-i='"+i+"' aria-label='"+c[0]+"' style='background:"+bg(c[1])+"'></button>"}).join("");
+$("heroSw").onclick=function(e){var b=e.target.closest("button");if(b)pick(null,+b.dataset.i)};
+var tx="ГЕЛЬ-ЛАК ✦ НАРАЩИВАНИЕ ✦ ДИЗАЙН ✦ ПЕДИКЮР ✦ УХОД ✦ ";$("mq").textContent=tx+tx+tx+tx;
+(function(){
+var rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+var pg=document.createElement("div");pg.className="pg";document.body.appendChild(pg);
+var els=[].slice.call(document.querySelectorAll(".wrap>.mono,.grid>div>.mono,.hero h1,.hero p,.sws,h2,.sum,.box,footer,.card,.shade"));
+els=els.filter(function(e,i){return els.indexOf(e)==i});
+if(!rm&&"IntersectionObserver" in window){
+ var io=new IntersectionObserver(function(es){es.forEach(function(x){x.target.classList.toggle("in",x.isIntersecting)})},{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+ els.forEach(function(e){e.classList.add("rv");var p=e.parentNode;if(p.classList.contains("cards")||p.classList.contains("shades"))e.style.setProperty("--d",([].indexOf.call(p.children,e)%4)*0.08+"s");io.observe(e)})}
+var P=[].slice.call(document.querySelectorAll(".dc svg")),tk=false;
+function upd(){tk=false;var h=innerHeight,m=document.documentElement.scrollHeight-h;pg.style.width=(m>0?scrollY/m*100:0)+"%";
+ if(!rm)P.forEach(function(s,i){var r=s.parentNode.getBoundingClientRect();if(r.bottom<-200||r.top>h+200)return;s.style.transform="translateY("+((r.top+r.height/2-h/2)*(i%2?-.07:.07))+"px)"})}
+addEventListener("scroll",function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});upd();
+})();
+R();
+</script>
+</body>
+</html>

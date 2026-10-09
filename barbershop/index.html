@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KRAFT — барбершоп</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:ital,wght@1,800;1,900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#33150f;--panel:#46231b;--ink:#e8e3d1;--mute:#b8a898;--line:#5f3a30;--accent:#e8e3d1;--on-accent:#33150f;--hl:#ee7a62;--sh:#1e0b07;--cbg:#e8e3d1;--cink:#33150f;--cmute:#6e5d52;--cline:#cdc5ae;--ok:#1f5a2c;--err:#8a2a22;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#e8e3d1;--panel:#f4f0e2;--ink:#33150f;--mute:#6e5d52;--line:#cdc5ae;--accent:#33150f;--on-accent:#e8e3d1;--hl:#8a3a35;--sh:#c4bba3;--cbg:#3a1a14;--cink:#e8e3d1;--cmute:#b9a99a;--cline:#5f3a30;--ok:#9fd8a8;--err:#f0a39b}}
+:root[data-theme="light"]{--bg:#e8e3d1;--panel:#f4f0e2;--ink:#33150f;--mute:#6e5d52;--line:#cdc5ae;--accent:#33150f;--on-accent:#e8e3d1;--hl:#8a3a35;--sh:#c4bba3;--cbg:#3a1a14;--cink:#e8e3d1;--cmute:#b9a99a;--cline:#5f3a30;--ok:#9fd8a8;--err:#f0a39b}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Manrope,system-ui,sans-serif;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+body{position:relative}
+.bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bg svg{position:absolute;color:var(--ink);opacity:.14;width:var(--w,120px);height:auto;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.bg .arc{position:absolute;border:2px dashed var(--line);border-radius:50%}
+h1,h2,.logo,.num{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:900}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0}
+.logo{font-size:24px;letter-spacing:-.5px;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:26px}
+nav a,.tel{color:var(--ink);text-decoration:none;font-weight:500}
+nav a:hover{color:var(--mute)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start;padding:20px 0 70px}
+h1{font-size:clamp(34px,5.4vw,66px);line-height:1.05;margin:20px 0 22px;letter-spacing:-1.5px}
+.lead{color:var(--mute);font-size:19px;max-width:44ch;margin:0 0 34px}
+.stats{display:flex;flex-wrap:wrap;gap:34px}
+.stats div{border-left:2px solid var(--ink);padding-left:14px}
+.num{font-size:26px;display:block}
+.stats small{color:var(--mute)}
+.pole{display:inline-block;width:46px;height:120px;border-radius:23px;border:2px solid var(--ink);background:repeating-linear-gradient(-45deg,var(--ink) 0 10px,transparent 10px 20px);background-size:100% 28px;animation:spin 2.4s linear infinite;margin-top:6px}
+@keyframes spin{to{background-position:0 28px}}
+@media (prefers-reduced-motion:reduce){.pole{animation:none}}
+.card{--panel:var(--cbg);--ink:var(--cink);--mute:var(--cmute);--line:var(--cline);--accent:var(--cink);--on-accent:var(--cbg);background:var(--cbg);color:var(--cink);border:1px solid var(--cline);border-radius:28px;padding:28px;box-shadow:10px 10px 0 var(--sh)}.hl{color:var(--hl)}
+.card h2{font-size:24px;margin:0 0 20px;letter-spacing:-.5px}
+.lab{display:block;color:var(--mute);font-size:14px;margin:16px 0 8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:500 14px Manrope,sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.chip:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.chip small{opacity:.6;margin-left:4px}
+.day{display:flex;flex-direction:column;align-items:center;border-radius:14px;padding:8px 12px;min-width:54px}
+.day b{font:italic 800 18px "Playfair Display",Georgia,serif}
+.day small{margin:0;font-size:11px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+input{background:transparent;border:0;border-bottom:1px solid var(--ink);color:var(--ink);padding:10px 0;font:400 16px Manrope,sans-serif;width:100%}
+input::placeholder{color:var(--mute)}
+input:focus-visible,.chip:focus-visible,.go:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.go{width:100%;margin-top:24px;border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);padding:17px;font:700 17px Manrope,sans-serif;cursor:pointer}
+.msg{margin-top:14px;font-weight:500;min-height:1.5em}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--err)}
+#mine ul{list-style:none;margin:10px 0 0;padding:0}
+#mine li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px dashed var(--line);font-size:14px}
+#mine button{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font:500 13px Manrope,sans-serif}
+section{padding:70px 0;border-top:1px solid var(--line)}
+.eyebrow{letter-spacing:3px;font-size:13px;color:var(--mute);text-transform:uppercase}
+section h2{font-size:clamp(30px,4.5vw,52px);line-height:1.08;margin:12px 0 36px;letter-spacing:-1px}
+.price{display:flex;align-items:baseline;gap:16px;padding:22px 0;border-bottom:1px dashed var(--line);max-width:760px}
+.price div{flex:1}.price b{font:italic 800 24px "Playfair Display",Georgia,serif;display:block}
+.price small{color:var(--mute)}.price .num{font-size:24px}
+.masters{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.m{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px}
+.av{width:56px;height:56px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:italic 800 24px "Playfair Display",Georgia,serif;margin-bottom:14px}
+.m b{font-size:19px;display:block}.m span{color:var(--mute);font-size:14px}
+.masters{align-items:start}
+.m{cursor:pointer;transition:border-color .35s,transform .35s}
+.more{display:grid;grid-template-rows:0fr;opacity:0;margin-top:0;transition:grid-template-rows .5s ease,opacity .4s ease,margin-top .5s ease}
+.more .in{overflow:hidden;min-height:0}
+.m:focus-within,.m.open{border-color:var(--ink)}
+.m:focus-within .more,.m.open .more{grid-template-rows:1fr;opacity:1;margin-top:16px}
+@media (hover:hover){.m:hover{border-color:var(--ink);transform:translateY(-4px)}.m:hover .more{grid-template-rows:1fr;opacity:1;margin-top:16px}}
+.m p{margin:0 0 12px;color:var(--mute);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.m .tags span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink)}
+.m .in small{display:block;color:var(--mute);margin-bottom:14px}
+.m .go2{font-size:13px;padding:9px 16px;background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.more,.m{transition:none}}
+footer{padding:36px 0 50px;color:var(--mute);border-top:1px solid var(--line);font-size:14px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}nav{display:none}}
+@media (max-width:520px){.fields{grid-template-columns:1fr}.tel{display:none}.card{padding:22px;box-shadow:6px 6px 0 var(--sh)}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+<svg style="width:0;height:0"><defs>
+<symbol id='sc' viewBox='0 0 120 120'><circle cx='28' cy='88' r='14'/><circle cx='28' cy='32' r='14'/><path d='M38 78L108 38M38 42L108 82'/><circle cx='69' cy='60' r='3' fill='currentColor'/></symbol>
+<symbol id='cb' viewBox='0 0 120 90'><rect x='6' y='10' width='108' height='26' rx='5'/><path d='M16 36v38M26 36v38M36 36v38M46 36v38M56 36v38M66 36v38M76 36v38M86 36v38M96 36v38M106 36v38'/></symbol>
+<symbol id='rz' viewBox='0 0 120 100'><path d='M6 38H78Q86 38 86 46V52H6Z'/><path d='M86 44L112 62L106 72L82 54'/><circle cx='98' cy='64' r='2' fill='currentColor'/></symbol>
+</defs></svg>
+<div class="arc" style="width:560px;height:560px;top:-140px;right:-190px"></div>
+<div class="arc" style="width:380px;height:380px;top:560px;left:-170px"></div>
+<div class="arc" style="width:460px;height:460px;top:1250px;right:-180px"></div>
+<svg viewBox="0 0 120 120" style="top:560px;left:44%;--w:140px;transform:rotate(-24deg)"><use href="#sc"/></svg>
+<svg viewBox="0 0 120 90" style="top:880px;right:3%;--w:200px;transform:rotate(-12deg)"><use href="#cb"/></svg>
+<svg viewBox="0 0 120 100" style="top:1000px;right:7%;--w:230px;transform:rotate(14deg)"><use href="#rz"/></svg>
+<svg viewBox="0 0 120 120" style="top:1380px;right:5%;--w:160px;transform:rotate(35deg)"><use href="#sc"/></svg>
+<svg viewBox="0 0 120 90" style="top:1260px;left:3%;--w:170px;transform:rotate(8deg)"><use href="#cb"/></svg>
+</div>
+<div class="wrap">
+<header>
+ <a class="logo" href="#">KRAFT</a>
+ <nav><a href="#prices">Услуги</a><a href="#masters">Мастера</a><a href="#book">Запись</a></nav>
+ 
+</header>
+
+<div class="hero">
+ <div>
+  <div class="pole" aria-hidden="true"></div>
+  <h1>Подстрижём аккуратно. <span class="hl">Уверенность оставим.</span></h1>
+  <p class="lead">Четыре кресла и никаких очередей. Хотите поболтать — поболтаем, хотите тишины — подстрижём молча. Выберите время справа.</p>
+  <div class="stats">
+   <div><span class="num">45 мин</span><small>на одну стрижку</small></div>
+   <div><span class="num">4 мастера</span><small>со стажем от 5 лет</small></div>
+   <div><span class="num">10–21</span><small>ежедневно</small></div>
+  </div>
+ </div>
+
+ <div class="card" id="book">
+  <h2>Запись на стрижку</h2>
+  <span class="lab" id="l1">Услуга</span><div class="row" id="svc" role="group" aria-labelledby="l1"></div>
+  <span class="lab" id="l2">Мастер</span><div class="row" id="mst" role="group" aria-labelledby="l2"></div>
+  <span class="lab" id="l3">День</span><div class="row" id="days" role="group" aria-labelledby="l3"></div>
+  <span class="lab" id="l4">Время</span><div class="row" id="times" role="group" aria-labelledby="l4"></div>
+  <div class="fields">
+   <input id="name" placeholder="Ваше имя" aria-label="Ваше имя" autocomplete="name">
+   <input id="phone" type="tel" placeholder="Телефон" aria-label="Телефон" autocomplete="tel">
+  </div>
+  <button class="go" id="go" type="button">Записаться</button>
+  <div class="msg" id="msg" role="status"></div>
+  <div id="mine"></div>
+ </div>
+</div>
+
+<section id="prices">
+ <div class="eyebrow">Прайс</div>
+ <h2>Услуги<br>и цены</h2>
+ <div id="priceList"></div>
+</section>
+
+<section id="masters">
+ <div class="eyebrow">Команда</div>
+ <h2>Мастера</h2>
+ <div class="masters" id="team"></div>
+</section>
+
+<footer>KRAFT · ул. Примерная, 12 · ежедневно 10:00–21:00 · Демо-сайт для портфолио, записи не отправляются</footer>
+</div>
+
+<script>
+var SVC=[["Стрижка",700,"Машинка и ножницы, мытьё головы, укладка","45 мин"],["Стрижка + борода",1100,"Полный образ, горячее полотенце","60 мин"],["Борода",450,"Моделирование, контур, уход","30 мин"],["Детская",500,"Для мальчиков до 12 лет","30 мин"]];
+var MST=[["Тимур","Классика и фейды","Чистые линии и плавные переходы без резких границ. Подойдёт тем, кто любит строгий, аккуратный образ.",["Классика","Фейд","Укладка"],"стаж 8 лет","Тимуру"],["Богдан","Длинные волосы и текстура","Работает с объёмом и формой: подберёт стрижку под структуру волос и ваш привычный стиль.",["Текстура","Длинные","Ножницы"],"стаж 6 лет","Богдану"],["Кирилл","Борода и уход","Любит бороды: подберёт форму под лицо, выровняет контур и подскажет, как ухаживать дома.",["Борода","Контур","Горячее полотенце"],"стаж 7 лет","Кириллу"],["Захар","Детские и короткие стрижки","Находит общий язык с маленькими клиентами, а взрослым делает быстрые стрижки без лишних церемоний.",["Детские","Короткие","Машинка"],"стаж 5 лет","Захару"]];
+var sel={s:0,m:-1,d:0,t:null},KEY="kraft-bookings",WD=["вс","пн","вт","ср","чт","пт","сб"];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+var store=load();
+function dt(i){var d=new Date();d.setDate(d.getDate()+i);return d}
+function key(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function fake(k,m,t){var s=k+m+t,n=0;for(var i=0;i<s.length;i++)n=(n*31+s.charCodeAt(i))%97;return n%4==0}
+function takenBy(mi,t){var k=key(dt(sel.d));return fake(k,MST[mi][0],t)||store.some(function(x){return x.k==k&&x.m==mi&&x.t==t})}
+function free(t){if(sel.m>=0)return !takenBy(sel.m,t);for(var i=0;i<MST.length;i++)if(!takenBy(i,t))return true;return false}
+function past(t){if(sel.d)return false;return +t.split(":")[0]<=new Date().getHours()}
+function chip(html,on,fn,dis,cls){var b=document.createElement("button");b.type="button";b.className="chip"+(cls?" "+cls:"");b.innerHTML=html;b.setAttribute("aria-pressed",on);b.disabled=!!dis;b.onclick=fn;return b}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function draw(){
+ var a=document.getElementById("svc");a.innerHTML="";
+ SVC.forEach(function(s,i){a.appendChild(chip(esc(s[0])+"<small>"+s[1]+" ₽</small>",sel.s==i,function(){sel.s=i;draw()}))});
+ var m=document.getElementById("mst");m.innerHTML="";
+ m.appendChild(chip("Любой",sel.m<0,function(){sel.m=-1;sel.t=null;draw()}));
+ MST.forEach(function(x,i){m.appendChild(chip(esc(x[0]),sel.m==i,function(){sel.m=i;sel.t=null;draw()}))});
+ var d=document.getElementById("days");d.innerHTML="";
+ for(var i=0;i<7;i++)(function(i){var x=dt(i);d.appendChild(chip("<b>"+x.getDate()+"</b><small>"+(i==0?"сегодня":i==1?"завтра":WD[x.getDay()])+"</small>",sel.d==i,function(){sel.d=i;sel.t=null;draw()},0,"day"))})(i);
+ var t=document.getElementById("times");t.innerHTML="";
+ for(var h=10;h<=20;h++)(function(s){t.appendChild(chip(s,sel.t==s,function(){sel.t=s;draw()},!free(s)||past(s)))})(h+":00");
+ var mi=document.getElementById("mine");
+ if(store.length){mi.innerHTML="<span class='lab'>Ваши записи</span><ul></ul>";
+  store.forEach(function(x,i){var li=document.createElement("li"),sp=document.createElement("span"),b=document.createElement("button");sp.textContent=x.label;b.textContent="Отменить";b.onclick=function(){store.splice(i,1);save(store);draw()};li.appendChild(sp);li.appendChild(b);mi.querySelector("ul").appendChild(li)})}else mi.innerHTML="";
+}
+function show(t,c){var m=document.getElementById("msg");m.className="msg "+c;m.textContent=t}
+document.getElementById("go").onclick=function(){
+ var n=document.getElementById("name").value.trim(),p=document.getElementById("phone").value.trim();
+ if(!sel.t)return show("Выберите время.","err");
+ if(n.length<2)return show("Введите имя.","err");
+ if(p.replace(/\D/g,"").length<7)return show("Введите телефон (минимум 7 цифр).","err");
+ var mi=sel.m;if(mi<0){for(var i=0;i<MST.length;i++)if(!takenBy(i,sel.t)){mi=i;break}}
+ var d=dt(sel.d),label=d.getDate()+"."+("0"+(d.getMonth()+1)).slice(-2)+" в "+sel.t+" — "+SVC[sel.s][0]+", "+MST[mi][0];
+ store.push({k:key(d),m:mi,t:sel.t,label:label});save(store);
+ show("Готово, "+n+"! Ждём вас: "+label+".","ok");sel.t=null;draw();
+};
+var pl=document.getElementById("priceList");
+SVC.forEach(function(s){var r=document.createElement("div");r.className="price";r.innerHTML="<div><b></b><small></small></div><span class='num'></span>";r.querySelector("b").textContent=s[0];r.querySelector("small").textContent=s[2]+" · "+s[3];r.querySelector(".num").textContent=s[1]+" ₽";pl.appendChild(r)});
+var tm=document.getElementById("team");
+MST.forEach(function(x,i){var c=document.createElement("div");c.className="m";c.tabIndex=0;c.innerHTML="<div class='av'></div><b></b><span></span><div class='more'><div class='in'><p></p><div class='tags'></div><small></small><button type='button' class='chip go2'></button></div></div>";c.querySelector(".av").textContent=x[0][0];c.querySelector("b").textContent=x[0];c.querySelector("span").textContent=x[1];c.querySelector("p").textContent=x[2];x[3].forEach(function(t){var s=document.createElement("span");s.textContent=t;c.querySelector(".tags").appendChild(s)});c.querySelector("small").textContent=x[4];var g=c.querySelector(".go2");g.textContent="Записаться к "+x[5];g.onclick=function(e){e.stopPropagation();sel.m=i;sel.t=null;draw();document.getElementById("book").scrollIntoView({behavior:"smooth"})};c.onclick=function(){c.classList.toggle("open")};tm.appendChild(c)});
+draw();
+</script>
+</body>
+</html>
